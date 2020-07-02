@@ -1,0 +1,25 @@
+
+
+/* 1. Quantitat de registres de la taula de vols. */
+select count(*) as Total from Flights;
+
+/* 2. Retard promig de sortida i arribada segons l’aeroport origen. */
+select Origin, sum(ArrDelay) / count(*) as prom_arribades, sum(DepDelay) / count(*) as prom_sortides from Flights Group by Origin;
+
+/* 3. Retard promig d’arribada dels vols, per mesos, anys i segons l’aeroport origen. A més, volen que els resultat es mostrin de la següent forma (fixa’t en l’ordre de les files): . */
+select Origin, colYear, colMonth, sum(ArrDelay) / count(*) as prom_arribades from Flights group by Origin, colYear, colMonth order by Origin asc;
+
+
+
+
+
+/* 6.	L’identificador dels 10 avions que més distància han recorregut fent vols. */
+select TailNum, sum(Distance) as totalDistance from Flights group by TailNum order by totalDistance desc limit 10;
+
+
+/* 7.	Companyies amb el seu retard promig només d’aquelles les quals els seus vols arriben al seu destí amb un retràs promig major de 10 minuts. */
+select UniqueCarrier, sum(ArrDelay) / count(*) as AvgDelay from Flights group by UniqueCarrier having sum(ArrDelay) / count(*) > 10 order by AvgDelay desc;
+
+
+
+
